@@ -1193,11 +1193,7 @@
         ["Kiến nghị, đề xuất xử lý", project.proposal],
         ["Dự kiến thời gian hoàn thành GPMB", project.deadline],
         ["Ghi chú", project.note]
-      ].filter(([, value]) => String(value || "").trim());
-
-      if (!rows.length) {
-        return "";
-      }
+      ];
 
       const baseRows = rows.map(([label, value]) => `
         <div class="detail-label">${escapeHtml(label)}</div>
