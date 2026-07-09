@@ -1,0 +1,1320 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Tổ công tác số 4 - GPMB các dự án</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --panel-soft: #eef4f7;
+      --ink: #18212f;
+      --muted: #5c697a;
+      --line: #dce3ea;
+      --accent: #0b6b72;
+      --accent-2: #bc6c25;
+      --accent-3: #486581;
+      --ok: #26734d;
+      --warn: #b26a00;
+      --danger: #a43a3a;
+      --unknown: #7b8794;
+      --shadow: 0 10px 30px rgba(20, 33, 45, 0.08);
+      --radius: 8px;
+      --container: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, "Helvetica Neue", sans-serif;
+      line-height: 1.45;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 0;
+      overflow-x: hidden;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(246, 247, 249, 0.95);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      width: min(var(--container), calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .brand strong {
+      font-size: 15px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .navlinks a,
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 34px;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      background: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .hero {
+      background:
+        linear-gradient(90deg, rgba(11, 107, 114, 0.96), rgba(72, 101, 129, 0.88)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='500' viewBox='0 0 1200 500'%3E%3Cpath d='M0 380 C190 290 310 360 510 270 C710 180 790 210 980 125 C1080 80 1140 80 1200 60 L1200 500 L0 500Z' fill='%23ffffff' opacity='.12'/%3E%3Cpath d='M0 290 C220 220 340 250 540 175 C760 92 980 118 1200 30' fill='none' stroke='%23ffffff' stroke-width='16' stroke-linecap='round' opacity='.18'/%3E%3Cpath d='M70 420 L230 330 L392 360 L540 260 L710 285 L875 190 L1050 220 L1160 150' fill='none' stroke='%23f2c078' stroke-width='7' stroke-linecap='round' stroke-linejoin='round' opacity='.8'/%3E%3Ccircle cx='230' cy='330' r='13' fill='%23f2c078'/%3E%3Ccircle cx='540' cy='260' r='13' fill='%23f2c078'/%3E%3Ccircle cx='875' cy='190' r='13' fill='%23f2c078'/%3E%3C/svg%3E");
+      background-size: cover;
+      color: #fff;
+      min-height: 230px;
+      display: flex;
+      align-items: end;
+    }
+
+    .hero-inner {
+      width: min(var(--container), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 26px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 980px;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 16px 0 0;
+      max-width: 880px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, .88);
+    }
+
+    main {
+      width: min(var(--container), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 46px;
+    }
+
+    section {
+      margin-top: 26px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .hint {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .kpis {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .two-col {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+    }
+
+    .three-col {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .card-pad {
+      padding: 16px;
+    }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 38px;
+    }
+
+    .kpi .value {
+      margin-top: 8px;
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .kpi .note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .overall-summary {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .summary-lead {
+      border-left: 5px solid var(--accent);
+    }
+
+    .summary-lead strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .summary-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .mini-metric {
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+      min-width: 0;
+    }
+
+    .mini-metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .mini-metric b {
+      display: block;
+      margin-top: 4px;
+      font-size: 18px;
+      color: var(--ink);
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 180px 180px;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .searchbox,
+    select {
+      width: 100%;
+      min-width: 0;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--ink);
+      padding: 0 12px;
+    }
+
+    .chart {
+      width: 100%;
+      height: 220px;
+      min-height: 0;
+      display: block;
+    }
+
+    .chart.owner-chart {
+      height: 260px;
+    }
+
+    .chart-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .chart-title h3,
+    .project-title h3 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      flex: 0 0 auto;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .phase {
+      border-left: 5px solid var(--accent);
+    }
+
+    .phase:nth-child(2) { border-left-color: var(--accent-2); }
+    .phase:nth-child(3) { border-left-color: var(--ok); }
+
+    .phase strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .date-chip {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #eef4f7;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .phase ul,
+    .compact-list {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) 210px;
+      gap: 14px;
+      align-items: start;
+      padding: 14px;
+    }
+
+    .ordinal {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      background: var(--panel-soft);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .project-title {
+      min-width: 0;
+    }
+
+    .project-title h3 {
+      overflow-wrap: anywhere;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: #fff;
+      font-size: 12px;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+
+    .progress-panel {
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid #f0d3a5;
+      border-radius: var(--radius);
+      background: #fff8ec;
+    }
+
+    .progress-panel.no-rate {
+      border-color: #b8c7e6;
+      background: #f1f5ff;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: #6f4b11;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .progress-row strong {
+      color: #8a3d00;
+      font-size: 13px;
+    }
+
+    .bar {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: #f1d5a5;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      width: var(--p, 0%);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent-2), #e8a23a);
+    }
+
+    .fill.pending {
+      width: 100%;
+      background: repeating-linear-gradient(135deg, #4969a8 0 10px, #9db2df 10px 20px);
+      opacity: .9;
+    }
+
+    .progress-panel.no-rate .progress-row,
+    .progress-panel.no-rate .progress-row strong,
+    .progress-panel.no-rate .status {
+      color: #294879;
+    }
+
+    .status {
+      margin-top: 8px;
+      color: #8a3d00;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status.ok { color: var(--ok); }
+    .status.warn { color: var(--warn); }
+
+    .detail-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      background: #f8fafb;
+      color: var(--muted);
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .source-detail {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+      overflow: hidden;
+    }
+
+    .source-detail summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 38px;
+      padding: 9px 11px;
+      cursor: pointer;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .source-detail summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .source-detail summary::after {
+      content: "+";
+      display: grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--panel-soft);
+      flex: 0 0 auto;
+    }
+
+    .source-detail[open] summary::after {
+      content: "-";
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: minmax(120px, .32fr) minmax(0, 1fr);
+      border-top: 1px solid var(--line);
+    }
+
+    .detail-label,
+    .detail-value {
+      padding: 9px 11px;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .detail-label {
+      color: var(--muted);
+      background: #f2f6f8;
+      font-weight: 700;
+    }
+
+    .detail-value {
+      color: var(--ink);
+      white-space: pre-wrap;
+    }
+
+    details.members {
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    details.members summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 44px;
+      padding: 12px 14px;
+      cursor: pointer;
+      color: var(--ink);
+      font-weight: 700;
+      list-style: none;
+    }
+
+    details.members summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.members summary::after {
+      content: "+";
+      display: grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--panel-soft);
+      color: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    details.members[open] summary::after {
+      content: "-";
+    }
+
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding: 0 14px 14px;
+    }
+
+    .member {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfcfd;
+      min-width: 0;
+    }
+
+    .member strong {
+      display: block;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .member span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .source-item {
+      padding: 14px;
+      border-left: 5px solid var(--accent-3);
+    }
+
+    .source-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .empty {
+      display: none;
+      padding: 18px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+
+    .method {
+      background: #fff8ec;
+      border: 1px solid #f0d3a5;
+      color: #5e421a;
+      border-radius: var(--radius);
+      padding: 13px 14px;
+      font-size: 13px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        align-items: flex-start;
+      }
+
+      .navlinks {
+        display: none;
+      }
+
+      .kpis,
+      .two-col,
+      .three-col,
+      .timeline,
+      .source-grid,
+      .member-grid,
+      .overall-summary,
+      .summary-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .project {
+        grid-template-columns: 38px minmax(0, 1fr);
+      }
+
+      .progress-panel {
+        grid-column: 1 / -1;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-label {
+        border-bottom: 0;
+      }
+
+      .hero { min-height: 220px; }
+    }
+
+    @media (max-width: 520px) {
+      .nav,
+      main,
+      .hero-inner {
+        width: min(100% - 22px, var(--container));
+      }
+
+      .hero-inner {
+        padding: 28px 0 22px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+      }
+
+      .card-pad,
+      .project {
+        padding: 12px;
+      }
+
+      .kpi .label {
+        min-height: 0;
+      }
+
+      .kpi .value {
+        font-size: 28px;
+      }
+
+      .ordinal {
+        width: 36px;
+        height: 36px;
+      }
+
+      .chart {
+        height: 200px;
+      }
+
+      .chart.owner-chart {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Điều hướng dashboard">
+      <div class="brand">
+        <strong>Tổ công tác số 4 - GPMB</strong>
+        <span>Quyết định 360-QĐ/TU ngày 06/7/2026</span>
+      </div>
+      <div class="navlinks">
+        <a href="#tong-quan">Tổng quan</a>
+        <a href="#bieu-do">Biểu đồ</a>
+        <a href="#tra-cuu">Tra cứu</a>
+        <a href="#nguon">Nguồn</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">Kết luận 312-KL/TU · Chỉ đạo, đôn đốc giải phóng mặt bằng</div>
+      <h1>Dashboard theo dõi giải phóng mặt bằng các dự án - Tổ công tác số 4</h1>
+      <p class="subtitle">Chỉ đạo, đôn đốc giải quyết khó khăn, vướng mắc, đẩy nhanh tiến độ giải phóng mặt bằng các dự án đầu tư công, ODA, ngoài ngân sách trên địa bàn tỉnh.</p>
+    </div>
+  </div>
+
+  <main>
+    <section id="tong-quan">
+      <div class="section-head">
+        <div>
+          <h2>Tổng Quan</h2>
+          <p class="hint">Tổ trưởng: đồng chí Huỳnh Thị Chiến Hòa - Phó Bí thư Tỉnh ủy · Tổ phó: đồng chí Đào Mỹ - Tỉnh ủy viên, Phó Chủ tịch UBND tỉnh · Cơ quan thường trực: Sở Nông nghiệp và Môi trường.</p>
+        </div>
+        <span class="chip">Ban hành: 06/7/2026</span>
+      </div>
+      <div class="grid kpis">
+        <article class="card card-pad kpi">
+          <div class="label">Dự án thuộc Tổ công tác số 4</div>
+          <div class="value" id="kpi-total">8</div>
+          <div class="note">Theo phụ lục Quyết định 360-QĐ/TU</div>
+        </article>
+        <article class="card card-pad kpi">
+          <div class="label">Dự án vốn ngân sách nhà nước</div>
+          <div class="value" id="kpi-public">6</div>
+          <div class="note">Nhóm A trong phụ lục</div>
+        </article>
+        <article class="card card-pad kpi">
+          <div class="label">Dự án ngoài ngân sách nhà nước</div>
+          <div class="value" id="kpi-private">2</div>
+          <div class="note">Nhóm B trong phụ lục</div>
+        </article>
+        <article class="card card-pad kpi">
+          <div class="label">Số liệu tiến độ GPMB</div>
+          <div class="value">0/8</div>
+          <div class="note">Chưa có nguồn báo cáo tiến độ</div>
+        </article>
+      </div>
+      <div class="overall-summary">
+        <article class="card card-pad summary-lead">
+          <strong>Tóm tắt tiến độ chung</strong>
+          <p class="hint">Quyết định 360-QĐ/TU (06/7/2026) mới thành lập Tổ công tác số 4 và giao danh mục 8 dự án để chỉ đạo, đôn đốc GPMB. Hiện chưa có báo cáo/bảng theo dõi tiến độ GPMB theo từng dự án (tỷ lệ %, khó khăn, kiến nghị) tương tự các Tổ công tác khác. Mục "Tra cứu dự án" bên dưới hiển thị đúng danh mục 8 dự án theo phụ lục; phần tiến độ sẽ được cập nhật khi có báo cáo cụ thể.</p>
+        </article>
+        <article class="card card-pad">
+          <div class="summary-metrics">
+            <div class="mini-metric"><span>Có tỷ lệ % đơn nhất</span><b>0/8</b></div>
+            <div class="mini-metric"><span>Đạt từ 90% trở lên</span><b>-</b></div>
+            <div class="mini-metric"><span>Bình quân dự án có %</span><b>-</b></div>
+            <div class="mini-metric"><span>Chưa có tỷ lệ % đơn nhất</span><b>8</b></div>
+          </div>
+        </article>
+      </div>
+      <details class="card members">
+        <summary>Danh sách thành viên Tổ công tác số 4</summary>
+        <div class="member-grid">
+          <div class="member"><strong>Huỳnh Thị Chiến Hòa</strong><span>Tổ trưởng - Phó Bí thư Tỉnh ủy</span></div>
+          <div class="member"><strong>Đào Mỹ</strong><span>Tổ phó - Tỉnh ủy viên, Phó Chủ tịch UBND tỉnh</span></div>
+          <div class="member"><strong>Nguyễn Thị Thu An</strong><span>Thành viên - Tỉnh ủy viên, Giám đốc Sở Công Thương</span></div>
+          <div class="member"><strong>Phạm Quang Hùng</strong><span>Thành viên - Phó Chủ tịch Ủy ban Mặt trận Tổ quốc Việt Nam tỉnh</span></div>
+          <div class="member"><strong>Lê Hữu Tuấn</strong><span>Thành viên - Phó Giám đốc Công an tỉnh</span></div>
+          <div class="member"><strong>Phạm Thị Phương Hoa</strong><span>Thành viên - Trưởng ban Pháp chế HĐND tỉnh</span></div>
+          <div class="member"><strong>Nguyễn An Phú</strong><span>Thành viên - Phó Giám đốc Sở Nông nghiệp và Môi trường</span></div>
+          <div class="member"><strong>Nguyễn Hoàng Lâm</strong><span>Thành viên - Phó Chánh Thanh tra tỉnh</span></div>
+          <div class="member"><strong>Vũ Đình Vinh</strong><span>Thành viên - Phó Giám đốc Sở Tài chính</span></div>
+          <div class="member"><strong>Lê Hùng</strong><span>Thành viên - Phó Giám đốc Sở Xây dựng</span></div>
+          <div class="member"><strong>Nguyễn Tuấn Quang</strong><span>Thành viên - Phó Giám đốc Sở Tư pháp</span></div>
+          <div class="member"><strong>Cao Như Khánh</strong><span>Thành viên - Phó Chánh Văn phòng UBND tỉnh</span></div>
+          <div class="member"><strong>Đào Nam Cường</strong><span>Thành viên - Phó Giám đốc Trung tâm phát triển quỹ đất tỉnh</span></div>
+          <div class="member"><strong>Nguyễn Tài Minh</strong><span>Thành viên - Phó Giám đốc Ban quản lý dự án đầu tư xây dựng công trình Giao thông và Nông nghiệp phát triển nông thôn tỉnh</span></div>
+          <div class="member"><strong>Võ Văn Lợi</strong><span>Thành viên - Phó Giám đốc Ban quản lý dự án đầu tư xây dựng công trình Dân dụng và Công nghiệp tỉnh</span></div>
+        </div>
+      </details>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Tổ Chức Hoạt Động</h2>
+          <p class="hint">Theo Điều 3, Quyết định 360-QĐ/TU ngày 06/7/2026 của Ban Thường vụ Tỉnh ủy.</p>
+        </div>
+      </div>
+      <div class="timeline">
+        <article class="card card-pad phase">
+          <strong>Phân công nhiệm vụ</strong>
+          <span class="date-chip">Điều 3.1</span>
+          <ul>
+            <li>Tổ trưởng Tổ công tác phân công nhiệm vụ cho các đồng chí thành viên.</li>
+          </ul>
+        </article>
+        <article class="card card-pad phase">
+          <strong>Chế độ hoạt động</strong>
+          <span class="date-chip">Điều 3.2</span>
+          <ul>
+            <li>Hoạt động theo chế độ kiêm nhiệm.</li>
+            <li>Được sử dụng con dấu của cơ quan, đơn vị mình.</li>
+            <li>Được sử dụng bộ máy hiện có của cơ quan, đơn vị mình để thực hiện nhiệm vụ.</li>
+          </ul>
+        </article>
+        <article class="card card-pad phase">
+          <strong>Cơ quan thường trực</strong>
+          <span class="date-chip">Điều 3.3 - 3.4</span>
+          <ul>
+            <li>Sở Nông nghiệp và Môi trường: tham mưu xây dựng Kế hoạch hoạt động của Tổ công tác.</li>
+            <li>Định kỳ hằng tháng hoặc đột xuất báo cáo tiến độ về Ban Thường vụ Tỉnh ủy để theo dõi, chỉ đạo.</li>
+            <li>Kinh phí của Tổ công tác thực hiện theo quy định hiện hành.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="bieu-do">
+      <div class="section-head">
+        <div>
+          <h2>Biểu Đồ Theo Dõi</h2>
+          <p class="hint">Biểu đồ dựng từ danh mục dự án tại Phụ lục kèm theo Quyết định 360-QĐ/TU ngày 06/7/2026.</p>
+        </div>
+      </div>
+      <div class="grid two-col">
+        <article class="card card-pad">
+          <div class="chart-title">
+            <h3>Cơ cấu dự án theo nguồn vốn</h3>
+            <div class="legend"><span><i class="dot" style="background:#0b6b72"></i> Ngân sách</span><span><i class="dot" style="background:#bc6c25"></i> Ngoài ngân sách</span></div>
+          </div>
+          <svg id="fundChart" class="chart" viewBox="0 0 520 220" role="img" aria-label="Biểu đồ cơ cấu dự án theo nguồn vốn"></svg>
+        </article>
+        <article class="card card-pad">
+          <div class="chart-title">
+            <h3>Trạng thái dữ liệu tiến độ GPMB</h3>
+            <div class="legend"><span><i class="dot" style="background:#7b8794"></i> Chưa có tỷ lệ % đơn nhất</span></div>
+          </div>
+          <svg id="progressDataChart" class="chart" viewBox="0 0 520 220" role="img" aria-label="Biểu đồ trạng thái dữ liệu tiến độ GPMB"></svg>
+        </article>
+      </div>
+      <div class="grid two-col" style="margin-top:12px">
+        <article class="card card-pad">
+          <div class="chart-title">
+            <h3>Số dự án theo chủ đầu tư</h3>
+          </div>
+          <svg id="ownerChart" class="chart owner-chart" viewBox="0 0 640 280" role="img" aria-label="Biểu đồ số dự án theo chủ đầu tư"></svg>
+        </article>
+        <article class="card card-pad">
+          <div class="chart-title">
+            <h3>Việc cần bổ sung để hoàn thiện dashboard</h3>
+          </div>
+          <ul class="compact-list">
+            <li>Kế hoạch triển khai chi tiết (tương tự Kế hoạch 295/KH-UBND của Tổ công tác số 3), gồm mốc thời gian, giai đoạn cụ thể.</li>
+            <li>Báo cáo/bảng theo dõi tiến độ GPMB theo từng dự án: diện tích đã bàn giao, diện tích còn lại, tỷ lệ %.</li>
+            <li>Khó khăn, vướng mắc và kiến nghị xử lý theo từng dự án.</li>
+            <li>Đầu mối liên hệ, thời hạn xử lý và chế độ báo cáo cụ thể của Tổ công tác số 4.</li>
+          </ul>
+          <div class="method" style="margin-top:14px">Ghi chú dữ liệu: toàn bộ nội dung trên trang này lấy từ Quyết định 360-QĐ/TU ngày 06/7/2026 và phụ lục kèm theo. Chưa có nguồn báo cáo tiến độ GPMB nên các dự án bên dưới đều hiển thị trạng thái "Chưa có tỷ lệ % GPMB".</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="tra-cuu">
+      <div class="section-head">
+        <div>
+          <h2>Tra Cứu Dự Án</h2>
+          <p class="hint">Tìm theo tên dự án, chủ đầu tư hoặc nhóm vốn. Số thứ tự giữ nguyên theo Phụ lục Quyết định 360-QĐ/TU.</p>
+        </div>
+      </div>
+      <div class="toolbar" aria-label="Bộ lọc tra cứu">
+        <label class="sr-only" for="q">Tìm kiếm</label>
+        <input id="q" class="searchbox" type="search" placeholder="Nhập tên dự án, chủ đầu tư, nguồn vốn...">
+        <label class="sr-only" for="fundFilter">Lọc nguồn vốn</label>
+        <select id="fundFilter">
+          <option value="all">Tất cả nguồn vốn</option>
+          <option value="Ngân sách nhà nước">Ngân sách nhà nước</option>
+          <option value="Ngoài ngân sách nhà nước">Ngoài ngân sách nhà nước</option>
+        </select>
+        <label class="sr-only" for="ownerFilter">Lọc chủ đầu tư</label>
+        <select id="ownerFilter">
+          <option value="all">Tất cả chủ đầu tư</option>
+        </select>
+      </div>
+      <div id="projectList" class="project-list"></div>
+      <div id="emptyState" class="empty">Không tìm thấy dự án phù hợp với điều kiện tra cứu.</div>
+    </section>
+
+    <section id="nguon">
+      <div class="section-head">
+        <div>
+          <h2>Nguồn Và Phương Pháp</h2>
+          <p class="hint">Dashboard được dựng từ tài liệu do người dùng cung cấp, không bổ sung dữ liệu ngoài.</p>
+        </div>
+      </div>
+      <div class="source-grid">
+        <article class="card source-item">
+          <strong>Quyết định 360-QĐ/TU ngày 06/7/2026</strong>
+          <span class="hint">Thành lập Tổ công tác số 04 về chỉ đạo, đôn đốc giải quyết khó khăn, vướng mắc, đẩy nhanh tiến độ giải phóng mặt bằng các dự án trên địa bàn tỉnh; căn cứ Kết luận số 312-KL/TU ngày 03/7/2026 của Ban Thường vụ Tỉnh ủy.</span>
+        </article>
+        <article class="card source-item">
+          <strong>Phụ lục kèm theo Quyết định 360-QĐ/TU</strong>
+          <span class="hint">Danh mục 08 công trình, dự án do Tổ công tác số 04 chỉ đạo, đôn đốc: 06 dự án dùng vốn ngân sách nhà nước và 02 dự án dùng nguồn vốn ngoài ngân sách nhà nước.</span>
+        </article>
+        <article class="card source-item">
+          <strong>Dữ liệu tiến độ GPMB - chưa có</strong>
+          <span class="hint">Chưa nhận được báo cáo/bảng theo dõi tiến độ GPMB theo từng dự án. Khi có tài liệu (tương tự bảng "THEO DÕI TỔ CÔNG TÁC 03" của Tổ công tác số 3), dashboard sẽ được cập nhật tỷ lệ %, khó khăn, kiến nghị cho từng dự án.</span>
+        </article>
+        <article class="card source-item">
+          <strong>Lần dựng trang</strong>
+          <span class="hint">Dựng lần đầu ngày 09/7/2026, theo đúng cấu trúc và định dạng của dashboard Tổ công tác số 3 (GMPB-3).</span>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const projects = [
+      {
+        "order": 1,
+        "name": "Tiểu dự án Nâng cấp, xây dựng hệ thống thủy lợi phục vụ tưới cho cây trồng cạn tỉnh Đắk Lắk thuộc dự án Nâng cao hiệu quả sử dụng nước cho các tỉnh bị ảnh hưởng bởi hạn hán, vay vốn ADB8",
+        "owner": "Ban quản lý dự án ĐTXD công trình Giao thông và Nông nghiệp phát triển nông thôn tỉnh",
+        "fund": "Ngân sách nhà nước",
+        "info": "",
+        "totalArea": "",
+        "clearedArea": "",
+        "remainingArea": "",
+        "remainingRate": "",
+        "issues": "",
+        "proposal": "",
+        "deadline": "",
+        "note": "",
+        "subitems": [],
+        "progress": null
+      },
+      {
+        "order": 2,
+        "name": "Nâng cấp, mở rộng đường 19 tháng 5 (giai đoạn 1)",
+        "owner": "Ban quản lý dự án ĐTXD Buôn Ma Thuột",
+        "fund": "Ngân sách nhà nước",
+        "info": "",
+        "totalArea": "",
+        "clearedArea": "",
+        "remainingArea": "",
+        "remainingRate": "",
+        "issues": "",
+        "proposal": "",
+        "deadline": "",
+        "note": "",
+        "subitems": [],
+        "progress": null
+      },
+      {
+        "order": 3,
+        "name": "Đường Tôn Đức Thắng (đoạn từ đường Nguyễn Đình Chiểu đến đường Trần Khánh Dư và đoạn từ đường Phan Trọng Tuệ đến đường Lê Quý Đôn), thành phố Buôn Ma Thuột",
+        "owner": "Ban quản lý dự án ĐTXD Buôn Ma Thuột",
+        "fund": "Ngân sách nhà nước",
+        "info": "",
+        "totalArea": "",
+        "clearedArea": "",
+        "remainingArea": "",
+        "remainingRate": "",
+        "issues": "",
+        "proposal": "",
+        "deadline": "",
+        "note": "",
+        "subitems": [],
+        "progress": null
+      },
+      {
+        "order": 4,
+        "name": "Cải tạo nâng cấp Tỉnh lộ 1 đoạn từ cầu Buôn Ky, thành phố Buôn Ma Thuột đến Km49+00",
+        "owner": "Ban quản lý dự án ĐTXD công trình Giao thông và Nông nghiệp phát triển nông thôn tỉnh",
+        "fund": "Ngân sách nhà nước",
+        "info": "",
+        "totalArea": "",
+        "clearedArea": "",
+        "remainingArea": "",
+        "remainingRate": "",
+        "issues": "",
+        "proposal": "",
+        "deadline": "",
+        "note": "",
+        "subitems": [],
+        "progress": null
+      },
+      {
+        "order": 5,
+        "name": "Cải tạo, nâng cấp Tỉnh Lộ 13, đoạn Km6+840 ÷ Km25+00",
+        "owner": "Ban quản lý dự án ĐTXD công trình Giao thông và Nông nghiệp phát triển nông thôn tỉnh",
+        "fund": "Ngân sách nhà nước",
+        "info": "",
+        "totalArea": "",
+        "clearedArea": "",
+        "remainingArea": "",
+        "remainingRate": "",
+        "issues": "",
+        "proposal": "",
+        "deadline": "",
+        "note": "",
+        "subitems": [],
+        "progress": null
+      },
+      {
+        "order": 6,
+        "name": "Đường giao thông từ Quốc lộ 26 đi xã Ea Ô, huyện Ea Kar kết nối trung tâm xã Vụ Bổn, huyện Krông Pắc",
+        "owner": "Ban quản lý dự án ĐTXD công trình Giao thông và Nông nghiệp phát triển nông thôn tỉnh",
+        "fund": "Ngân sách nhà nước",
+        "info": "",
+        "totalArea": "",
+        "clearedArea": "",
+        "remainingArea": "",
+        "remainingRate": "",
+        "issues": "",
+        "proposal": "",
+        "deadline": "",
+        "note": "",
+        "subitems": [],
+        "progress": null
+      },
+      {
+        "order": 7,
+        "name": "Nhà máy điện gió NT 1; NT 2",
+        "owner": "Công ty Cổ phần Tập đoàn Đầu tư Năng lượng Hoà Bình, Công ty Cổ phần Điện gió Nguyên Thảo",
+        "fund": "Ngoài ngân sách nhà nước",
+        "info": "",
+        "totalArea": "",
+        "clearedArea": "",
+        "remainingArea": "",
+        "remainingRate": "",
+        "issues": "",
+        "proposal": "",
+        "deadline": "",
+        "note": "",
+        "subitems": [],
+        "progress": null
+      },
+      {
+        "order": 8,
+        "name": "Nhà máy điện gió Krông Năng 1.1; 1.2",
+        "owner": "Công ty CP Thủy điện Đakrông, Công ty CP điện gió Phong Liệu, Công ty CP Thủy điện Đakrông Đồng Văn",
+        "fund": "Ngoài ngân sách nhà nước",
+        "info": "",
+        "totalArea": "",
+        "clearedArea": "",
+        "remainingArea": "",
+        "remainingRate": "",
+        "issues": "",
+        "proposal": "",
+        "deadline": "",
+        "note": "",
+        "subitems": [],
+        "progress": null
+      }
+    ];
+
+    const colors = {
+      public: "#0b6b72",
+      private: "#bc6c25",
+      owner: "#486581",
+      unknown: "#7b8794",
+      line: "#dce3ea",
+      text: "#18212f",
+      muted: "#5c697a"
+    };
+
+    const normalize = (value) => String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+    const escapeHtml = (value) => String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+    function detailRows(project) {
+      const rows = [
+        ["Thông tin dự án", project.info],
+        ["Tổng diện tích cần GPMB", project.totalArea],
+        ["Diện tích đã GPMB", project.clearedArea],
+        ["Diện tích cần tiếp tục GPMB", project.remainingArea],
+        ["Tỷ lệ % còn lại", project.remainingRate],
+        ["Khó khăn, vướng mắc liên quan GPMB", project.issues],
+        ["Kiến nghị, đề xuất xử lý", project.proposal],
+        ["Dự kiến thời gian hoàn thành GPMB", project.deadline],
+        ["Ghi chú", project.note]
+      ].filter(([, value]) => String(value || "").trim());
+
+      if (!rows.length) {
+        return `<div class="detail-grid"><div class="detail-label">Trạng thái</div><div class="detail-value">Chưa có báo cáo tiến độ GPMB cho dự án này.</div></div>`;
+      }
+
+      const baseRows = rows.map(([label, value]) => `
+        <div class="detail-label">${escapeHtml(label)}</div>
+        <div class="detail-value">${escapeHtml(value)}</div>
+      `).join("");
+
+      return `<div class="detail-grid">${baseRows}</div>`;
+    }
+
+    function initFilters() {
+      const ownerFilter = document.getElementById("ownerFilter");
+      [...new Set(projects.map(p => p.owner))].sort((a, b) => a.localeCompare(b, "vi")).forEach(owner => {
+        const option = document.createElement("option");
+        option.value = owner;
+        option.textContent = owner.length > 42 ? owner.slice(0, 39) + "..." : owner;
+        ownerFilter.appendChild(option);
+      });
+    }
+
+    function renderProjects() {
+      const list = document.getElementById("projectList");
+      const q = normalize(document.getElementById("q").value);
+      const fund = document.getElementById("fundFilter").value;
+      const owner = document.getElementById("ownerFilter").value;
+      const filtered = projects.filter(p => {
+        const haystack = normalize([p.name, p.owner, p.fund, p.info, p.totalArea, p.clearedArea, p.remainingArea, p.remainingRate, p.issues, p.proposal, p.deadline].join(" "));
+        return (!q || haystack.includes(q)) &&
+          (fund === "all" || p.fund === fund) &&
+          (owner === "all" || p.owner === owner);
+      }).sort((a, b) => {
+        const aKnown = Number.isFinite(a.progress);
+        const bKnown = Number.isFinite(b.progress);
+        if (aKnown && bKnown) return b.progress - a.progress || a.order - b.order;
+        if (aKnown) return -1;
+        if (bKnown) return 1;
+        return a.order - b.order;
+      });
+
+      list.innerHTML = "";
+      filtered.forEach(project => {
+        const hasSingleRate = Number.isFinite(project.progress);
+        const percent = Number.isFinite(project.progress)
+          ? `${project.progress.toLocaleString("vi-VN", { maximumFractionDigits: 2 })}%`
+          : (project.remainingRate ? `Còn lại: ${project.remainingRate}` : "Chưa có tỷ lệ");
+        const width = Number.isFinite(project.progress) ? `${project.progress}%` : "0%";
+        const statusClass = Number.isFinite(project.progress) && project.progress >= 90 ? "ok" : "";
+        const article = document.createElement("article");
+        article.className = "card project";
+        article.innerHTML = `
+          <div class="ordinal">${project.order}</div>
+          <div class="project-title">
+            <h3>${project.name}</h3>
+            <div class="meta">
+              <span class="pill">${project.fund}</span>
+              <span class="pill">${project.owner}</span>
+              ${project.deadline ? `<span class="pill">Hoàn thành: ${project.deadline}</span>` : ""}
+              ${project.remainingRate ? `<span class="pill">Còn lại: ${project.remainingRate}</span>` : ""}
+            </div>
+            <details class="source-detail">
+              <summary>Chi tiết tiến độ, khó khăn, kiến nghị</summary>
+              ${detailRows(project)}
+            </details>
+          </div>
+          <div class="progress-panel ${hasSingleRate ? "" : "no-rate"}" aria-label="Tiến độ GPMB">
+            <div class="progress-row"><span>Tiến độ GPMB</span><strong>${percent}</strong></div>
+            <div class="bar"><div class="fill ${hasSingleRate ? "" : "pending"}" style="--p:${width}"></div></div>
+            <div class="status ${statusClass}">${hasSingleRate ? "Có số liệu tiến độ" : "Chưa có tỷ lệ % GPMB đơn nhất"}</div>
+          </div>
+        `;
+        list.appendChild(article);
+      });
+
+      document.getElementById("emptyState").style.display = filtered.length ? "none" : "block";
+    }
+
+    function drawFundChart() {
+      const svg = document.getElementById("fundChart");
+      const publicCount = projects.filter(p => p.fund === "Ngân sách nhà nước").length;
+      const privateCount = projects.length - publicCount;
+      const total = projects.length;
+      svg.innerHTML = `
+        <rect x="0" y="0" width="520" height="220" fill="transparent"/>
+        <text x="260" y="38" text-anchor="middle" font-size="40" font-weight="700" fill="${colors.text}">${total}</text>
+        <text x="260" y="62" text-anchor="middle" font-size="13" fill="${colors.muted}">dự án thuộc Tổ công tác số 4</text>
+        <rect x="70" y="92" width="380" height="30" rx="8" fill="#e7edf2"/>
+        <rect x="70" y="92" width="${Math.round(publicCount / total * 380)}" height="30" rx="8" fill="${colors.public}"/>
+        <rect x="${70 + Math.round(publicCount / total * 380)}" y="92" width="${380 - Math.round(publicCount / total * 380)}" height="30" rx="8" fill="${colors.private}"/>
+        <text x="70" y="158" font-size="13" fill="${colors.text}" font-weight="700">Ngân sách nhà nước</text>
+        <text x="450" y="158" text-anchor="end" font-size="13" fill="${colors.text}" font-weight="700">${publicCount} dự án</text>
+        <text x="70" y="190" font-size="13" fill="${colors.text}" font-weight="700">Ngoài ngân sách nhà nước</text>
+        <text x="450" y="190" text-anchor="end" font-size="13" fill="${colors.text}" font-weight="700">${privateCount} dự án</text>
+      `;
+    }
+
+    function drawProgressDataChart() {
+      const svg = document.getElementById("progressDataChart");
+      const known = projects.filter(p => Number.isFinite(p.progress)).length;
+      const unknown = projects.length - known;
+      const max = projects.length;
+      const knownW = Math.max(0, known / max * 340);
+      svg.innerHTML = `
+        <rect x="0" y="0" width="520" height="220" fill="transparent"/>
+        <text x="70" y="56" font-size="13" fill="${colors.text}" font-weight="700">Có tỷ lệ % GPMB đơn nhất</text>
+        <rect x="70" y="72" width="340" height="28" rx="8" fill="#e7edf2"/>
+        <rect x="70" y="72" width="${knownW}" height="28" rx="8" fill="${colors.public}"/>
+        <text x="432" y="91" font-size="13" fill="${colors.text}" font-weight="700">${known}/${max}</text>
+        <text x="70" y="140" font-size="13" fill="${colors.text}" font-weight="700">Chưa có tỷ lệ % đơn nhất</text>
+        <rect x="70" y="156" width="340" height="28" rx="8" fill="#e7edf2"/>
+        <rect x="70" y="156" width="${unknown / max * 340}" height="28" rx="8" fill="${colors.unknown}"/>
+        <text x="432" y="175" font-size="13" fill="${colors.text}" font-weight="700">${unknown}/${max}</text>
+      `;
+    }
+
+    function drawOwnerChart() {
+      const svg = document.getElementById("ownerChart");
+      const counts = [...projects.reduce((map, p) => map.set(p.owner, (map.get(p.owner) || 0) + 1), new Map())]
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "vi"));
+      const max = Math.max(...counts.map(([, count]) => count));
+      const rows = counts.map(([owner, count], i) => {
+        const y = 34 + i * 39;
+        const w = Math.max(22, count / max * 270);
+        const shortOwner = owner.length > 46 ? owner.slice(0, 43) + "..." : owner;
+        return `
+          <text x="22" y="${y}" font-size="12" fill="${colors.text}">${shortOwner}</text>
+          <rect x="315" y="${y - 17}" width="270" height="22" rx="7" fill="#e7edf2"/>
+          <rect x="315" y="${y - 17}" width="${w}" height="22" rx="7" fill="${colors.owner}"/>
+          <text x="${Math.min(579, 324 + w)}" y="${y - 1}" font-size="12" fill="${w > 36 ? "#fff" : colors.text}" font-weight="700" text-anchor="${w > 36 ? "end" : "start"}">${count}</text>
+        `;
+      }).join("");
+      svg.innerHTML = `<rect x="0" y="0" width="640" height="280" fill="transparent"/>${rows}`;
+    }
+
+    ["q", "fundFilter", "ownerFilter"].forEach(id => {
+      document.addEventListener("input", event => {
+        if (event.target && event.target.id === id) renderProjects();
+      });
+      document.addEventListener("change", event => {
+        if (event.target && event.target.id === id) renderProjects();
+      });
+    });
+
+    initFilters();
+    renderProjects();
+    drawFundChart();
+    drawProgressDataChart();
+    drawOwnerChart();
+  </script>
+</body>
+</html>
