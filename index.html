@@ -1195,16 +1195,11 @@
         ["Ghi chú", project.note]
       ].filter(([, value]) => String(value || "").trim());
 
-      const hasReport = ["info", "totalArea", "clearedArea", "remainingArea", "remainingRate", "issues", "proposal", "deadline"]
-        .some(key => String(project[key] || "").trim());
+      if (!rows.length) {
+        return "";
+      }
 
-      const statusRow = hasReport ? [] : [["Trạng thái", Number.isFinite(project.progress)
-        ? `Đã có tỷ lệ % tiến độ GPMB (${project.progress}%) nhưng chưa có báo cáo chi tiết khó khăn, kiến nghị.`
-        : "Chưa có báo cáo tiến độ GPMB cho dự án này."]];
-
-      const allRows = [...statusRow, ...rows];
-
-      const baseRows = allRows.map(([label, value]) => `
+      const baseRows = rows.map(([label, value]) => `
         <div class="detail-label">${escapeHtml(label)}</div>
         <div class="detail-value">${escapeHtml(value)}</div>
       `).join("");
