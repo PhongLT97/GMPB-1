@@ -197,6 +197,10 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .one-col {
+      grid-template-columns: 1fr;
+    }
+
     .card {
       background: var(--panel);
       border: 1px solid var(--line);
@@ -304,6 +308,18 @@
       height: 260px;
     }
 
+    .chart.owner-fund-chart {
+      height: 250px;
+    }
+
+    .chart.summary-status-chart {
+      height: 180px;
+    }
+
+    .summary-chart-title {
+      margin: 14px 0 8px;
+    }
+
     .chart-title {
       display: flex;
       align-items: baseline;
@@ -341,12 +357,47 @@
       gap: 12px;
     }
 
+    .timeline-four {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     .phase {
       border-left: 5px solid var(--accent);
     }
 
     .phase:nth-child(2) { border-left-color: var(--accent-2); }
     .phase:nth-child(3) { border-left-color: var(--ok); }
+    .phase:nth-child(4) { border-left-color: var(--accent-3); }
+
+    .phase.current-phase {
+      border-color: #f59e0b;
+      border-left-color: #f59e0b;
+      background: #fff7ed;
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, .22), var(--shadow);
+    }
+
+    .phase.current-phase strong {
+      color: #9a3412;
+    }
+
+    .phase.current-phase .date-chip {
+      background: #fed7aa;
+      color: #9a3412;
+      box-shadow: inset 0 0 0 1px rgba(194, 65, 12, .18);
+    }
+
+    .current-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin: 0 0 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #c2410c;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+    }
 
     .phase strong {
       display: block;
@@ -692,7 +743,9 @@
       .kpis,
       .two-col,
       .three-col,
+      .one-col,
       .timeline,
+      .timeline-four,
       .source-grid,
       .member-grid,
       .overall-summary,
@@ -830,8 +883,12 @@
             <div class="mini-metric"><span>Có tỷ lệ % đơn nhất</span><b>4/8</b></div>
             <div class="mini-metric"><span>Đạt từ 90% trở lên</span><b>2</b></div>
             <div class="mini-metric"><span>Bình quân 4 dự án có %</span><b>66,74%</b></div>
-            <div class="mini-metric"><span>Kinh phí đã chi trả (toàn Tổ)</span><b>&gt;1.044.988 triệu đồng</b></div>
+            <div class="mini-metric"><span>Chưa có tỷ lệ % đơn nhất</span><b>4</b></div>
           </div>
+          <div class="chart-title summary-chart-title">
+            <h3>Cơ cấu tiến độ 4 dự án có tỷ lệ GPMB</h3>
+          </div>
+          <svg id="progressDataChart" class="chart summary-status-chart" viewBox="0 0 520 180" role="img" aria-label="Biểu đồ cơ cấu tiến độ 4 dự án có tỷ lệ GPMB"></svg>
         </article>
       </div>
       <details class="card members">
@@ -863,7 +920,7 @@
           <p class="hint">Từ ngày ban hành Kế hoạch 295/KH-UBND, thực hiện liên tục kể cả ngày nghỉ khi cần thiết.</p>
         </div>
       </div>
-      <div class="timeline">
+      <div class="timeline timeline-four">
         <article class="card card-pad phase">
           <strong>Ngày 1-10 · Rà soát</strong>
           <span class="date-chip">07/7/2026 - 16/7/2026</span>
@@ -874,7 +931,8 @@
             <li>Xác định các điểm nghẽn.</li>
           </ul>
         </article>
-        <article class="card card-pad phase">
+        <article class="card card-pad phase current-phase">
+          <span class="current-badge">Mốc hiện nay</span>
           <strong>Ngày 11-30 · Tập trung xử lý</strong>
           <span class="date-chip">17/7/2026 - 05/8/2026</span>
           <ul>
@@ -894,6 +952,18 @@
             <li>Đánh giá, rút kinh nghiệm và báo cáo Ban Chỉ đạo.</li>
           </ul>
         </article>
+        <article class="card card-pad phase goal-phase">
+          <strong>Mục tiêu chiến dịch</strong>
+          <span class="date-chip">Cập nhật hằng tuần</span>
+          <ul>
+            <li>Rà soát, cập nhật tiến độ 100% dự án thuộc diện theo dõi.</li>
+            <li>Hoàn thành 100% hồ sơ tồn đọng đã phân loại và giao xử lý.</li>
+            <li>Phấn đấu hoàn thành tối thiểu 90-95% diện tích GPMB theo kế hoạch từng dự án.</li>
+            <li>Hoàn thành 100% phương án bồi thường đủ điều kiện được phê duyệt.</li>
+            <li>Phấn đấu giải ngân 100% kinh phí bồi thường, hỗ trợ, tái định cư đã bố trí.</li>
+            <li>100% khiếu nại, kiến nghị thuộc thẩm quyền được xem xét giải quyết.</li>
+          </ul>
+        </article>
       </div>
     </section>
 
@@ -904,41 +974,13 @@
           <p class="hint">Biểu đồ dựng từ danh mục dự án tại Phụ lục kèm theo Quyết định 357-QĐ/TU ngày 06/7/2026.</p>
         </div>
       </div>
-      <div class="grid two-col">
+      <div class="grid one-col">
         <article class="card card-pad">
           <div class="chart-title">
-            <h3>Cơ cấu dự án theo nguồn vốn</h3>
+            <h3>Dự án theo chủ đầu tư và nguồn vốn</h3>
             <div class="legend"><span><i class="dot" style="background:#0b6b72"></i> Ngân sách</span><span><i class="dot" style="background:#bc6c25"></i> Ngoài ngân sách</span></div>
           </div>
-          <svg id="fundChart" class="chart" viewBox="0 0 520 220" role="img" aria-label="Biểu đồ cơ cấu dự án theo nguồn vốn"></svg>
-        </article>
-        <article class="card card-pad">
-          <div class="chart-title">
-            <h3>Trạng thái dữ liệu tiến độ GPMB</h3>
-            <div class="legend"><span><i class="dot" style="background:#7b8794"></i> Chưa có tỷ lệ % đơn nhất</span></div>
-          </div>
-          <svg id="progressDataChart" class="chart" viewBox="0 0 520 220" role="img" aria-label="Biểu đồ trạng thái dữ liệu tiến độ GPMB"></svg>
-        </article>
-      </div>
-      <div class="grid two-col" style="margin-top:12px">
-        <article class="card card-pad">
-          <div class="chart-title">
-            <h3>Số dự án theo chủ đầu tư</h3>
-          </div>
-          <svg id="ownerChart" class="chart owner-chart" viewBox="0 0 640 280" role="img" aria-label="Biểu đồ số dự án theo chủ đầu tư"></svg>
-        </article>
-        <article class="card card-pad">
-          <div class="chart-title">
-            <h3>Mục tiêu chiến dịch cần cập nhật hằng tuần</h3>
-          </div>
-          <ul class="compact-list">
-            <li>Rà soát, cập nhật tiến độ 100% dự án thuộc diện theo dõi.</li>
-            <li>Hoàn thành 100% hồ sơ tồn đọng đã phân loại và giao xử lý.</li>
-            <li>Phấn đấu hoàn thành tối thiểu 90-95% diện tích GPMB theo kế hoạch từng dự án.</li>
-            <li>Hoàn thành 100% phương án bồi thường đủ điều kiện được phê duyệt.</li>
-            <li>Phấn đấu giải ngân 100% kinh phí bồi thường, hỗ trợ, tái định cư đã bố trí.</li>
-            <li>100% khiếu nại, kiến nghị thuộc thẩm quyền được xem xét giải quyết.</li>
-          </ul>
+          <svg id="ownerFundChart" class="chart owner-fund-chart" viewBox="0 0 760 280" role="img" aria-label="Biểu đồ dự án theo chủ đầu tư và nguồn vốn"></svg>
           <div class="method" style="margin-top:14px">Ghi chú dữ liệu: tiến độ GPMB được cập nhật theo Báo cáo số 605-BC/TCT01 ngày 27/7/2026 (sơ kết 20 ngày đêm, kỳ báo cáo đến 26/7/2026) và Phụ lục I, II, III kèm theo. Những dự án chưa có số liệu diện tích/tỷ lệ trong báo cáo được hiển thị trạng thái chưa có số liệu tỷ lệ.</div>
         </article>
       </div>
@@ -1018,7 +1060,7 @@
         </article>
         <article class="card source-item">
           <strong>Liên hệ trong tài liệu theo dõi</strong>
-          <span class="hint">Mọi chi tiết xin liên hệ số điện thoại: 0782581939 (Ông: Lê Nguyên Toán) hoặc: 0349764636 (Bà: Lê Như Quỳnh).</span>
+          <span class="hint">Mọi chi tiết xin liên hệ số điện thoại: 0932595559 (Ông: Mai Văn Phúc) hoặc: 0908747268 (Ông: Nguyễn Văn Trường).</span>
         </article>
       </div>
     </section>
@@ -1282,61 +1324,103 @@
       document.getElementById("emptyState").style.display = filtered.length ? "none" : "block";
     }
 
-    function drawFundChart() {
-      const svg = document.getElementById("fundChart");
-      const publicCount = projects.filter(p => p.fund === "Ngân sách nhà nước").length;
-      const privateCount = projects.length - publicCount;
-      const total = projects.length;
-      svg.innerHTML = `
-        <rect x="0" y="0" width="520" height="220" fill="transparent"/>
-        <text x="260" y="38" text-anchor="middle" font-size="40" font-weight="700" fill="${colors.text}">${total}</text>
-        <text x="260" y="62" text-anchor="middle" font-size="13" fill="${colors.muted}">dự án thuộc Tổ công tác số 1</text>
-        <rect x="70" y="92" width="380" height="30" rx="8" fill="#e7edf2"/>
-        <rect x="70" y="92" width="${Math.round(publicCount / total * 380)}" height="30" rx="8" fill="${colors.public}"/>
-        <rect x="${70 + Math.round(publicCount / total * 380)}" y="92" width="${380 - Math.round(publicCount / total * 380)}" height="30" rx="8" fill="${colors.private}"/>
-        <text x="70" y="158" font-size="13" fill="${colors.text}" font-weight="700">Ngân sách nhà nước</text>
-        <text x="450" y="158" text-anchor="end" font-size="13" fill="${colors.text}" font-weight="700">${publicCount} dự án</text>
-        <text x="70" y="190" font-size="13" fill="${colors.text}" font-weight="700">Ngoài ngân sách nhà nước</text>
-        <text x="450" y="190" text-anchor="end" font-size="13" fill="${colors.text}" font-weight="700">${privateCount} dự án</text>
-      `;
+    function clipLabel(text, max = 34) {
+      return text.length > max ? `${text.slice(0, max - 3)}...` : text;
+    }
+
+    function isMobileChart() {
+      return window.matchMedia("(max-width: 520px)").matches;
+    }
+
+    function drawOwnerFundChart() {
+      const svg = document.getElementById("ownerFundChart");
+      const mobile = isMobileChart();
+      const counts = [...projects.reduce((map, p) => {
+        const item = map.get(p.owner) || { owner: p.owner, public: 0, private: 0 };
+        if (p.fund === "Ngoài ngân sách nhà nước") item.private += 1;
+        else item.public += 1;
+        map.set(p.owner, item);
+        return map;
+      }, new Map()).values()].sort((a, b) => (b.public + b.private) - (a.public + a.private) || a.owner.localeCompare(b.owner, "vi"));
+      const max = Math.max(...counts.map(item => item.public + item.private));
+      if (mobile) {
+        const height = 26 + counts.length * 53;
+        svg.setAttribute("viewBox", `0 0 420 ${height}`);
+        const rows = counts.map((item, i) => {
+          const y = 26 + i * 53;
+          const total = item.public + item.private;
+          const totalW = Math.max(22, total / max * 250);
+          const publicW = total ? totalW * item.public / total : 0;
+          const privateW = totalW - publicW;
+          return `
+            <text x="18" y="${y}" font-size="13" fill="${colors.text}" font-weight="700">${escapeHtml(clipLabel(item.owner, 44))}</text>
+            <rect x="18" y="${y + 11}" width="250" height="20" rx="7" fill="#e7edf2"/>
+            <rect x="18" y="${y + 11}" width="${publicW}" height="20" rx="7" fill="${colors.public}"/>
+            <rect x="${18 + publicW}" y="${y + 11}" width="${privateW}" height="20" rx="7" fill="${colors.private}"/>
+            <text x="286" y="${y + 26}" font-size="13" fill="${colors.text}" font-weight="700">${total} dự án</text>
+          `;
+        }).join("");
+        svg.innerHTML = `<rect x="0" y="0" width="420" height="${height}" fill="transparent"/>${rows}`;
+        return;
+      }
+      const height = Math.max(280, 36 + counts.length * 33 + 20);
+      svg.setAttribute("viewBox", `0 0 760 ${height}`);
+      const rows = counts.map((item, i) => {
+        const y = 36 + i * 33;
+        const total = item.public + item.private;
+        const totalW = Math.max(20, total / max * 300);
+        const publicW = total ? totalW * item.public / total : 0;
+        const privateW = totalW - publicW;
+        return `
+          <text x="22" y="${y}" font-size="12" fill="${colors.text}">${escapeHtml(clipLabel(item.owner, 46))}</text>
+          <rect x="350" y="${y - 15}" width="300" height="19" rx="7" fill="#e7edf2"/>
+          <rect x="350" y="${y - 15}" width="${publicW}" height="19" rx="7" fill="${colors.public}"/>
+          <rect x="${350 + publicW}" y="${y - 15}" width="${privateW}" height="19" rx="7" fill="${colors.private}"/>
+          <text x="${Math.min(644, 360 + totalW)}" y="${y - 1}" font-size="12" fill="${totalW > 34 ? "#fff" : colors.text}" font-weight="700" text-anchor="${totalW > 34 ? "end" : "start"}">${total}</text>
+        `;
+      }).join("");
+      svg.innerHTML = `<rect x="0" y="0" width="760" height="${height}" fill="transparent"/>${rows}`;
     }
 
     function drawProgressDataChart() {
       const svg = document.getElementById("progressDataChart");
-      const known = projects.filter(p => Number.isFinite(p.progress)).length;
-      const unknown = projects.length - known;
-      const max = projects.length;
-      const knownW = Math.max(0, known / max * 340);
-      svg.innerHTML = `
-        <rect x="0" y="0" width="520" height="220" fill="transparent"/>
-        <text x="70" y="56" font-size="13" fill="${colors.text}" font-weight="700">Có tỷ lệ % GPMB đơn nhất</text>
-        <rect x="70" y="72" width="340" height="28" rx="8" fill="#e7edf2"/>
-        <rect x="70" y="72" width="${knownW}" height="28" rx="8" fill="${colors.public}"/>
-        <text x="432" y="91" font-size="13" fill="${colors.text}" font-weight="700">${known}/${max}</text>
-        <text x="70" y="140" font-size="13" fill="${colors.text}" font-weight="700">Chưa có tỷ lệ % đơn nhất</text>
-        <rect x="70" y="156" width="340" height="28" rx="8" fill="#e7edf2"/>
-        <rect x="70" y="156" width="${unknown / max * 340}" height="28" rx="8" fill="${colors.unknown}"/>
-        <text x="432" y="175" font-size="13" fill="${colors.text}" font-weight="700">${unknown}/${max}</text>
-      `;
-    }
-
-    function drawOwnerChart() {
-      const svg = document.getElementById("ownerChart");
-      const counts = [...projects.reduce((map, p) => map.set(p.owner, (map.get(p.owner) || 0) + 1), new Map())]
-        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "vi"));
-      const max = Math.max(...counts.map(([, count]) => count));
-      const rows = counts.map(([owner, count], i) => {
-        const y = 34 + i * 39;
-        const w = Math.max(22, count / max * 270);
-        const shortOwner = owner.length > 46 ? owner.slice(0, 43) + "..." : owner;
+      const known = projects.filter(p => Number.isFinite(p.progress));
+      const segments = [
+        { label: "Từ 90% trở lên", count: known.filter(p => p.progress >= 90).length, color: colors.public },
+        { label: "Từ 70% đến dưới 90%", count: known.filter(p => p.progress >= 70 && p.progress < 90).length, color: "#2f855a" },
+        { label: "Dưới 70%", count: known.filter(p => p.progress > 0 && p.progress < 70).length, color: "#d97706" },
+        { label: "0%", count: known.filter(p => p.progress === 0).length, color: colors.unknown }
+      ];
+      const total = known.length || 1;
+      const cx = 118;
+      const cy = 92;
+      const r = 56;
+      const width = 22;
+      const circumference = 2 * Math.PI * r;
+      let offset = 0;
+      const arcs = segments.map(segment => {
+        const length = segment.count / total * circumference;
+        const dash = `${Math.max(0, length - 2)} ${circumference}`;
+        const arc = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${segment.color}" stroke-width="${width}" stroke-dasharray="${dash}" stroke-dashoffset="${-offset}" transform="rotate(-90 ${cx} ${cy})" stroke-linecap="round"/>`;
+        offset += length;
+        return arc;
+      }).join("");
+      const legend = segments.map((segment, index) => {
+        const y = 44 + index * 32;
         return `
-          <text x="22" y="${y}" font-size="12" fill="${colors.text}">${shortOwner}</text>
-          <rect x="315" y="${y - 17}" width="270" height="22" rx="7" fill="#e7edf2"/>
-          <rect x="315" y="${y - 17}" width="${w}" height="22" rx="7" fill="${colors.owner}"/>
-          <text x="${Math.min(579, 324 + w)}" y="${y - 1}" font-size="12" fill="${w > 36 ? "#fff" : colors.text}" font-weight="700" text-anchor="${w > 36 ? "end" : "start"}">${count}</text>
+          <rect x="235" y="${y - 13}" width="14" height="14" rx="4" fill="${segment.color}"/>
+          <text x="260" y="${y - 2}" font-size="12.2" fill="${colors.text}" font-weight="700">${segment.label}</text>
+          <text x="460" y="${y - 2}" font-size="12.2" fill="${colors.text}" font-weight="800" text-anchor="end">${segment.count} dự án</text>
         `;
       }).join("");
-      svg.innerHTML = `<rect x="0" y="0" width="640" height="280" fill="transparent"/>${rows}`;
+      svg.innerHTML = `
+        <rect x="0" y="0" width="520" height="180" fill="transparent"/>
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#e7edf2" stroke-width="${width}"/>
+        ${arcs}
+        <text x="${cx}" y="${cy - 4}" font-size="25" fill="${colors.text}" font-weight="800" text-anchor="middle">${known.length}</text>
+        <text x="${cx}" y="${cy + 17}" font-size="11.5" fill="${colors.muted}" font-weight="700" text-anchor="middle">dự án có %</text>
+        ${legend}
+      `;
     }
 
     ["q", "fundFilter", "ownerFilter"].forEach(id => {
@@ -1348,11 +1432,18 @@
       });
     });
 
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        drawOwnerFundChart();
+      }, 120);
+    });
+
     initFilters();
     renderProjects();
-    drawFundChart();
+    drawOwnerFundChart();
     drawProgressDataChart();
-    drawOwnerChart();
   </script>
 </body>
 </html>
