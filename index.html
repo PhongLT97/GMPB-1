@@ -241,13 +241,28 @@
     }
 
     .summary-lead {
-      border-left: 5px solid var(--accent);
+      border-left: 6px solid var(--accent-2);
+      background: #fff7ea;
     }
 
     .summary-lead strong {
       display: block;
-      font-size: 18px;
+      color: #8a3d00;
+      font-size: 20px;
       margin-bottom: 8px;
+    }
+
+    .summary-lead .hint {
+      color: #4f3820;
+      font-size: 14px;
+    }
+
+    .summary-lead p {
+      margin: 0 0 8px;
+    }
+
+    .summary-lead p:last-child {
+      margin-bottom: 0;
     }
 
     .summary-metrics {
@@ -873,24 +888,6 @@
           <div class="note">Có tỷ lệ % đơn nhất</div>
         </article>
       </div>
-      <div class="overall-summary">
-        <article class="card card-pad summary-lead">
-          <strong>Tóm tắt tiến độ chung</strong>
-          <p class="hint">Theo Báo cáo số 605-BC/TCT01 ngày 27/7/2026 sơ kết 20 ngày đêm của Tổ công tác số 01 (kỳ báo cáo đến 26/7/2026): 02/08 dự án đã cơ bản hoàn thành GPMB (cao tốc Khánh Hòa – Buôn Ma Thuột thành phần 3 đạt 99,99%, còn 03 hộ vướng; Bến cảng Bãi Gốc đạt 100% nhưng phát sinh khiếu nại mới của 09 hộ liên quan bồi thường cũ); dự án CSHT khu du lịch hồ Lắk đạt 66,3% diện tích giai đoạn đang GPMB (còn 04 hộ chưa nhận tiền, vướng tái định cư); đường Ama Jhao nối dài mới bàn giao 0,65% diện tích dù kiểm đếm đã đạt 97,9% (24/41 hộ đã phê duyệt phương án từ chối nhận tiền). 04 dự án còn lại (đường sắt tốc độ cao Bắc - Nam, cao tốc Phú Yên - Đắk Lắk CT.23, cải tạo đường Trần Phú, điện gió Thuận Phong) chưa tới giai đoạn thu hồi đất hoặc đang điều chỉnh chủ trương đầu tư nên chưa phát sinh số liệu GPMB trực tiếp. Tổng kinh phí bồi thường, hỗ trợ đã chi trả, giải ngân đến 26/7/2026 đạt trên 1.044.988 triệu đồng. Khó khăn chủ yếu vẫn là: giá bồi thường đất chưa được người dân đồng thuận, thiếu/chưa thống nhất quỹ đất và hệ số tái định cư, hồ sơ nguồn gốc đất chưa đầy đủ và một số hộ cản trở thi công.</p>
-        </article>
-        <article class="card card-pad">
-          <div class="summary-metrics">
-            <div class="mini-metric"><span>Có tỷ lệ % đơn nhất</span><b>4/8</b></div>
-            <div class="mini-metric"><span>Đạt từ 90% trở lên</span><b>2</b></div>
-            <div class="mini-metric"><span>Bình quân 4 dự án có %</span><b>66,74%</b></div>
-            <div class="mini-metric"><span>Chưa có tỷ lệ % đơn nhất</span><b>4</b></div>
-          </div>
-          <div class="chart-title summary-chart-title">
-            <h3>Cơ cấu tiến độ 4 dự án có tỷ lệ GPMB</h3>
-          </div>
-          <svg id="progressDataChart" class="chart summary-status-chart" viewBox="0 0 520 180" role="img" aria-label="Biểu đồ cơ cấu tiến độ 4 dự án có tỷ lệ GPMB"></svg>
-        </article>
-      </div>
       <details class="card members">
         <summary>Danh sách thành viên Tổ công tác số 1</summary>
         <div class="member-grid">
@@ -982,6 +979,27 @@
           </div>
           <svg id="ownerFundChart" class="chart owner-fund-chart" viewBox="0 0 760 280" role="img" aria-label="Biểu đồ dự án theo chủ đầu tư và nguồn vốn"></svg>
           <div class="method" style="margin-top:14px">Ghi chú dữ liệu: tiến độ GPMB được cập nhật theo Báo cáo số 605-BC/TCT01 ngày 27/7/2026 (sơ kết 20 ngày đêm, kỳ báo cáo đến 26/7/2026) và Phụ lục I, II, III kèm theo. Những dự án chưa có số liệu diện tích/tỷ lệ trong báo cáo được hiển thị trạng thái chưa có số liệu tỷ lệ.</div>
+        </article>
+      </div>
+      <div class="overall-summary" style="margin-top:12px">
+        <article class="card card-pad summary-lead">
+          <strong>Tóm tắt tiến độ chung</strong>
+          <p class="hint">Theo Báo cáo số 605-BC/TCT01 ngày 27/7/2026 sơ kết 20 ngày đêm của Tổ công tác số 01 (kỳ báo cáo đến 26/7/2026): 02/08 dự án đã cơ bản hoàn thành GPMB (cao tốc Khánh Hòa – Buôn Ma Thuột thành phần 3 đạt 99,99%, còn 03 hộ vướng; Bến cảng Bãi Gốc đạt 100% nhưng phát sinh khiếu nại mới của 09 hộ liên quan bồi thường cũ).</p>
+          <p class="hint">Dự án CSHT khu du lịch hồ Lắk đạt 66,3% diện tích giai đoạn đang GPMB (còn 04 hộ chưa nhận tiền, vướng tái định cư); đường Ama Jhao nối dài mới bàn giao 0,65% diện tích dù kiểm đếm đã đạt 97,9% (24/41 hộ đã phê duyệt phương án từ chối nhận tiền). 04 dự án còn lại (đường sắt tốc độ cao Bắc - Nam, cao tốc Phú Yên - Đắk Lắk CT.23, cải tạo đường Trần Phú, điện gió Thuận Phong) chưa tới giai đoạn thu hồi đất hoặc đang điều chỉnh chủ trương đầu tư nên chưa phát sinh số liệu GPMB trực tiếp.</p>
+          <p class="hint">Khó khăn chủ yếu vẫn là: giá bồi thường đất chưa được người dân đồng thuận, thiếu/chưa thống nhất quỹ đất và hệ số tái định cư, hồ sơ nguồn gốc đất chưa đầy đủ và một số hộ cản trở thi công.</p>
+          <p class="hint">Tổng kinh phí bồi thường, hỗ trợ đã chi trả, giải ngân đến 26/7/2026 đạt trên 1.044.988 triệu đồng. Thời gian tới tập trung các mốc 30/7, 05/8, 15/8 và 20/8/2026; tiếp tục đối thoại, vận động, trình thẩm định/phê duyệt phương án, chi trả tiền, xử lý cưỡng chế khi đủ điều kiện và bàn giao mặt bằng sạch theo từng dự án.</p>
+        </article>
+        <article class="card card-pad">
+          <div class="summary-metrics">
+            <div class="mini-metric"><span>Có tỷ lệ % đơn nhất</span><b>4/8</b></div>
+            <div class="mini-metric"><span>Đạt từ 90% trở lên</span><b>2</b></div>
+            <div class="mini-metric"><span>Bình quân 4 dự án có %</span><b>66,74%</b></div>
+            <div class="mini-metric"><span>Chưa có tỷ lệ % đơn nhất</span><b>4</b></div>
+          </div>
+          <div class="chart-title summary-chart-title">
+            <h3>Cơ cấu tiến độ 4 dự án có tỷ lệ GPMB</h3>
+          </div>
+          <svg id="progressDataChart" class="chart summary-status-chart" viewBox="0 0 520 180" role="img" aria-label="Biểu đồ cơ cấu tiến độ 4 dự án có tỷ lệ GPMB"></svg>
         </article>
       </div>
     </section>
